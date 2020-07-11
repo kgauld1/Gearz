@@ -1,0 +1,19 @@
+{
+  "name": "NewHacks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "matter-js": "^0.14.2",
+    "pathseg": "^1.2.0",
+    "socket.io": "^2.3.0"
+  }
+}

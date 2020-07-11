@@ -1,0 +1,115 @@
+@font-face{
+  font-family: 'modak-regular';
+  src: url('/fonts/Modak-Regular.ttf')
+  format('truetype');
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+  padding:0;
+  margin:0;
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+}
+
+#enter-details {
+	height: 50%;
+	text-align: center;
+}
+
+
+
+#navigation_div{
+	display: inline-block;
+  height: auto%;
+  position: absolute;
+  top:0;
+  overflow: hidden;
+  width: 50%;
+  background-color:rgb(194, 152, 90);
+  margin: 0;
+  text-align: center;
+  border-radius: 7px;
+  padding-left:0;
+  padding-right:0;
+  padding-top:1%;
+  padding-bottom:1%;
+  z-index:3;
+}
+.navDiv{
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+#nav_home{
+  width:20%;
+  text-align: left;
+}
+#nav_logo{
+  width: 55%;
+}
+#nav_help{
+  width:20%;
+  text-align:right;
+}
+
+#code_input{
+  text-align: center;
+  align-items: center;
+}
+
+#home_image{
+  width:25%;
+  height:25%;
+}
+
+#help_image{
+  width:25%;
+  height:25%;
+}
+
+#help_div{
+  height: 200%;
+  font-size:800%;
+}
+
+/* #double {
+	display: inline-block;
+} */
+
+#name {
+	display: block;
+}
+
+#enter-details button {
+	font-size: 1.5em;
+}
+
+#name, #codeInput {
+	font-size: 1.5em;
+	margin: 1rem;
+	border: none;
+	border-bottom: 3px solid black;
+	outline: none;
+}
+
+#name:focus, #codeInput:focus {
+	font-size: 1.5em;
+	border: none;
+	border-bottom: 3px solid blue;
+}
+
+#logo_text{
+  font-family: "Impact";
+  margin:0;
+  font-size:200%;
+  color: white;
+}
+
+#waiting_room_text{
+  font-family: "verdana";
+}
