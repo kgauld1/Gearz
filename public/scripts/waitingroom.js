@@ -2,6 +2,7 @@
 Previously defined variables:
 roomCode
 username
+otherUser
 socket
 */
 let showCode = document.getElementById('waiting-room-code');
@@ -16,6 +17,7 @@ console.log('hello');
 
 showCode.innerHTML = 'Room Code: ' + roomCode;
 showName.innerHTML = 'Name: ' + username;
+if (otherUser) document.getElementById('waiting_room_text').innerHTML = "Companion: " + otherUser;
 
 
 

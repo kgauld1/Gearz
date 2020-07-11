@@ -2,6 +2,7 @@ var socket = io();
 
 var roomCode = "";
 var username = "";
+var otherUser = "";
 
 function checkHasName(obj){
 	if (obj.value != ''){
@@ -39,18 +40,23 @@ async function goToWaitingRoom(){
 socket.on('joinRandom', data => {
 	console.log('data', data);
 	if (data.error) return console.log('error', data.error);
-	roomCode = data.key;
-	username = data.name;
-	
-	goToWaitingRoom();
+	else {
+		roomCode = data.key;
+		username = data.name;
+		otherUser = data.player;
+		goToWaitingRoom();
+	}
 });
 
 socket.on('joinCode', data => {
 	console.log('data', data);
-	if (data == 'error') return console.log(data.error);
-	roomCode = data.key;
-	username = data.name;
-	goToWaitingRoom();
+	if (data.error) return console.log(data.error);
+	else {
+		roomCode = data.key;
+		username = data.name;
+		otherUser = data.player;
+		goToWaitingRoom();
+	}
 });
 
 window.addEventListener('keyup', e => {

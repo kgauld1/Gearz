@@ -20,6 +20,13 @@ module.exports = (http) => {
 		available[randKey] = {players: []};
 		return "" + randKey;
 	}
+
+	function startGame(key){
+		playing[key] = available[key];
+		playing[key].level = 1;
+		playing[key].board = [];	
+		delete available[key];
+	}
 	
 	io.on('connection', (socket) => {
 		let group = "";
@@ -42,10 +49,7 @@ module.exports = (http) => {
 			io.to(key).emit('newPlayer', name);
 			
 			if (available[key].players.length >= maxPlayers){
-				playing[key] = available[key];
-				playing[key].level = 1;
-				playing[key].board = [];
-				delete available[key];
+				startGame(key);
 				io.in(key).emit('starting');
 			}
 		});
@@ -56,7 +60,7 @@ module.exports = (http) => {
 			console.log(code, available);
 			if (code in available){
 				let prevPlayer = "";
-				for (let i of available[key].players) prevPlayer = i;
+				for (let i of available[code].players) prevPlayer = i;
 				available[code].players.push(name);
 				socket.join(code);
 				socket.emit('joinCode', {key: code, name: name, player: prevPlayer});
@@ -64,10 +68,13 @@ module.exports = (http) => {
 				io.to(code).emit('newPlayer', name);
 
 				if (available[code].players.length >= maxPlayers){
-					playing[code] = available[code];
-					delete available[code];
+					startGame(code);
 					io.in(code).emit('starting');
 				}
+			}
+			else if (code){
+				available[code] = {players: [name]};
+				socket.emit('joinCode', {key: code, name: name, player: ''});
 			}
 			else socket.emit('joinCode', {error: 'error'});
 		});
@@ -88,13 +95,12 @@ module.exports = (http) => {
 			socket.leave(group);
 			if (group in playing){
 				let index = playing[group].players.indexOf(name);
-				delete playing[group].players[index];
-				if (playing[group].players.length == 0) delete playing[group];
-				else io.in(group).emit('disconnected', name);
+				delete playing[group];
+				io.in(group).emit('disconnect');
 			}
 			if (group in available){
 				let index = available[group].players.indexOf(name);
-				delete available[group].players[index];
+				delete available[group];
 				if (available[group].players.length == 0) delete available[group];
 				else io.in(group).emit('disconnected', name);
 			}
