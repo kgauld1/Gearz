@@ -58,7 +58,3 @@ socket.on('joinCode', data => {
 		goToWaitingRoom();
 	}
 });
-
-window.addEventListener('keyup', e => {
-	if (e.key == '@') replaceBody('/partials/waitingroom.html');
-})

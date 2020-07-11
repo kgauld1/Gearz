@@ -17,12 +17,12 @@ console.log('hello');
 
 showCode.innerHTML = 'Room Code: ' + roomCode;
 showName.innerHTML = 'Name: ' + username;
-if (otherUser) document.getElementById('waiting_room_text').innerHTML = "Companion: " + otherUser;
+if (otherUser) document.getElementById('waiting_room_text').innerHTML = "Partner: " + otherUser;
 
 
 
-function goToPlayRoom(){
-	replaceBody('/partials/game.html');
+async function goToPlayRoom(){
+	await replaceBody('/partials/game.html');
 	let scr = document.createElement('script');
 	scr.src = '/scripts/game.js';
 	scr.setAttribute('defer', 'defer');
@@ -30,6 +30,7 @@ function goToPlayRoom(){
 }
 
 socket.on('newPlayer', (name) => {
+	console.log(name);
 	let p = document.getElementById('waiting_room_text');
 	p.innerHTML = "Found player: " + name;
 });
@@ -38,6 +39,6 @@ socket.on('newPlayer', (name) => {
 socket.on('starting', () => {
 	document.getElementById('startIndicator').innerHTML = 'Starting...';
 	setTimeout(() => {
-
+		goToPlayRoom();
 	}, 2000);
 });

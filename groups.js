@@ -50,14 +50,17 @@ module.exports = (http) => {
 			
 			if (available[key].players.length >= maxPlayers){
 				startGame(key);
-				io.in(key).emit('starting');
+				setTimeout(() => {
+					startGame(code);
+					io.in(code).emit('starting');
+					socket.emit('starting');
+				}, 1000);
 			}
 		});
 
 		socket.on('joinCode', ({playerName, code}) => {
 			name = cleanName(playerName);
 			group = code;
-			console.log(code, available);
 			if (code in available){
 				let prevPlayer = "";
 				for (let i of available[code].players) prevPlayer = i;
@@ -68,12 +71,17 @@ module.exports = (http) => {
 				io.to(code).emit('newPlayer', name);
 
 				if (available[code].players.length >= maxPlayers){
-					startGame(code);
-					io.in(code).emit('starting');
+					setTimeout(() => {
+						startGame(code);
+						io.in(code).emit('starting');
+						socket.emit('starting');
+					}, 1000);
+					
 				}
 			}
 			else if (code){
 				available[code] = {players: [name]};
+				socket.join(code);
 				socket.emit('joinCode', {key: code, name: name, player: ''});
 			}
 			else socket.emit('joinCode', {error: 'error'});
@@ -100,7 +108,7 @@ module.exports = (http) => {
 			}
 			if (group in available){
 				let index = available[group].players.indexOf(name);
-				delete available[group];
+				delete available[group].players[index];
 				if (available[group].players.length == 0) delete available[group];
 				else io.in(group).emit('disconnected', name);
 			}
