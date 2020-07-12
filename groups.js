@@ -1,9 +1,17 @@
 
-function cleanName(str){
+
+function clean(str){
 	str = str.replace(/</g, '&lt').replace(/>/g, '&gt');
+	return str;
+}
+
+function cleanName(str){
+	str = clean(str);
 	if(str.length > 15) str = str.substr(0, 15);
 	return str;
 }
+
+
 
 
 module.exports = (http) => {
@@ -14,6 +22,8 @@ module.exports = (http) => {
 
 	var playing = {};
 	var available = {};
+
+	var uplateLevels = [];
 
 	function createGroup(){
 		let randKey = Math.round(Math.random()*1e5);
@@ -51,8 +61,7 @@ module.exports = (http) => {
 			if (available[key].players.length >= maxPlayers){
 				startGame(key);
 				setTimeout(() => {
-					startGame(code);
-					io.in(code).emit('starting');
+					io.in(key).emit('starting');
 					socket.emit('starting');
 				}, 1000);
 			}
@@ -88,11 +97,14 @@ module.exports = (http) => {
 		});
 
 		socket.on('chat', message => {
-			io.in(group).emit(message);
+			message = clean(message);
+			console.log('message', name, message);
+			socket.to(group).emit('chat', {message: message, name: name, you: false});
+			socket.emit('chat', {message: message, name: name, you: true})
 		});
 
-		socket.on('place', (row, col, size) => {
-			io.in(group).emit('palce', (row, col, size, color))
+		socket.on('place', (x, y, num) => {
+			io.in(group).emit('place', {x: x, y: y, num: num});
 		});
 
 		socket.on('getGroup', () => {

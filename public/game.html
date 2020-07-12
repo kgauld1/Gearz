@@ -1,58 +1,28 @@
-<!DOCTYPE html>
-<html>
-	<head>
+<div id="navigation_div">
+	<div id="nav_home" class="navDiv">
+		<a href="https://www.gearz.tech/">
+			<img src="/images/home.png" id="home_image">
+		</a>
+	</div>
+	<div id="nav_logo" class="navDiv">
+		<p id="logo_text">
+			GEARZ
+		</p>
+	</div>
+	<div id="nav_help" class="navDiv">
+		<a href="#help">
+			<img src="/images/question.png" id="help_image">
+		</a>
+	</div>
+</div>
 
-		<meta charset='UTF-8'>
-		<title>Gearz</title>
+<div id="main_div">
 
-		<link rel='stylesheet' href='/styles/index.css'>
-		<script src = "https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.14.2/matter.min.js"> </script>
-		<script src="/socket.io/socket.io.js"></script>
-    <!-- <script src="pathseg.js"></script> -->
+	<div id='animation-screen'></div>
+	
+</div>
 
-	</head>
-	<body>
-    <div id="navigation_div">
-      <div id="nav_home" class="navDiv">
-        <a href="https://www.gearz.tech/">
-          <img src="/images/home.png" id="home_image">
-        </a>
-      </div>
-      <div id="nav_logo" class="navDiv">
-        <p id="logo_text">
-          GEARZ
-        </p>
-      </div>
-      <div id="nav_help" class="navDiv">
-        <a href="#help">
-          <img src="/images/question.png" id="help_image">
-        </a>
-      </div>
-    </div>
-
-    <div id="main_div">
-      <p id="waiting_room_text">
-        Waiting for a player to join...
-      </p>
-    </div>
-
-
-		<!-- <div id='animation-screen'> -->
-			<!-- <img src='https://bestanimations.com/Science/Gears/loadinggears/loading-gears-animation-3.gif'> -->
-		<!-- </div> -->
-		
-
-
-		<!-- <div id='enter-details'>
-				<input id='name' type='text' placeholder="Name" oninput='checkHasName(this)'>
-			<div id='double'>
-				<input id='codeInput' type='text' placeholder="Enter Game Code"> <button onclick='joinCode()' disabled>Join</button>
-			</div>
-			<button onclick='joinRandom()' disabled>Join A Random Game</button>
-		</div> -->		
-<!-- 
-		<script src = '/scripts/index.js'> </script>
-				<script src = '/scripts/physics.js'> </script> -->
-    
-	</body>
-</html>
+<div id='chat'>
+	<div id='messages'></div>
+	<input id='chat-input' type='text'>
+</div>

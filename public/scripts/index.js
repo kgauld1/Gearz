@@ -1,3 +1,9 @@
+var room = new GearRoom(document.getElementById('animation-screen'));
+room.addMotor(90, 512, 1, document.getElementById('motor-switch'));
+room.addGears([1, 1, 1, 2, 2, 2]);
+room.addEndGear(480, 512);
+room.run();
+
 var socket = io();
 
 var roomCode = "";
@@ -38,7 +44,6 @@ async function goToWaitingRoom(){
 }
 
 socket.on('joinRandom', data => {
-	console.log('data', data);
 	if (data.error) return console.log('error', data.error);
 	else {
 		roomCode = data.key;
@@ -49,7 +54,6 @@ socket.on('joinRandom', data => {
 });
 
 socket.on('joinCode', data => {
-	console.log('data', data);
 	if (data.error) return console.log(data.error);
 	else {
 		roomCode = data.key;
@@ -58,3 +62,4 @@ socket.on('joinCode', data => {
 		goToWaitingRoom();
 	}
 });
+

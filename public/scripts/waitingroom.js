@@ -8,21 +8,12 @@ socket
 let showCode = document.getElementById('waiting-room-code');
 let showName = document.getElementById('waiting-room-name');
 
-// while(!showName){}
-
-console.log(showCode, showName);
-
-console.log(roomCode);
-console.log('hello');
-
 showCode.innerHTML = 'Room Code: ' + roomCode;
 showName.innerHTML = 'Name: ' + username;
 if (otherUser) document.getElementById('waiting_room_text').innerHTML = "Partner: " + otherUser;
 
-
-
 async function goToPlayRoom(){
-	await replaceBody('/partials/game.html');
+	await replaceBody('/game.html');
 	let scr = document.createElement('script');
 	scr.src = '/scripts/game.js';
 	scr.setAttribute('defer', 'defer');
@@ -42,3 +33,7 @@ socket.on('starting', () => {
 		goToPlayRoom();
 	}, 2000);
 });
+
+socket.on('disconnect', () => {
+	window.location.href = '/';
+})

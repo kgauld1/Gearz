@@ -22,10 +22,9 @@ body {
 }
 
 
-
 #navigation_div{
 	display: inline-block;
-  height: auto%;
+  height: auto;
   position: absolute;
   top:0;
   overflow: hidden;

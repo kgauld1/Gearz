@@ -1,0 +1,20 @@
+#chat {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	height: 50em;
+	max-height: 30vh;
+	width: 25em;
+	border: 3px solid black;
+	border-radius: 1em;
+	padding: 1em;
+}
+#messages {
+	height: calc(100% - 1.5em) !important;
+	overflow-y: auto;
+	word-wrap: break-word;
+}
+#chat-input {
+	height: 1.5em;
+	width: 100%;
+}
