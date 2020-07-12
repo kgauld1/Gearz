@@ -1,7 +1,7 @@
 var room = new GearRoom(document.getElementById('animation-screen'));
-room.addMotor(90, 512, 1, document.getElementById('motor-switch'));
+room.addMotor(90, 510, 1, document.getElementById('motor-switch'));
 room.addGears([1, 1, 1, 2, 2, 2]);
-room.addEndGear(480, 512);
+room.addEndGear(480, 510);
 room.run();
 
 var socket = io();

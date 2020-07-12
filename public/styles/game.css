@@ -8,7 +8,18 @@
 	border: 3px solid black;
 	border-radius: 1em;
 	padding: 1em;
+	background: white;
+	resize: both;
+	overflow: hidden;
+	transform: rotateZ(180deg);
 }
+#chat .inner {
+	transform: rotateZ(180deg);
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
 #messages {
 	height: calc(100% - 1.5em) !important;
 	overflow-y: auto;
@@ -17,4 +28,5 @@
 #chat-input {
 	height: 1.5em;
 	width: 100%;
+	border: 1px solid black;
 }

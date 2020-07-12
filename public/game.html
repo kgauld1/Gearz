@@ -19,10 +19,14 @@
 <div id="main_div">
 
 	<div id='animation-screen'></div>
+	<button id='motor-switch' style='display: none'>Turn Motor On</button>
+	<button id='testing' onclick='socket.emit("run")'>Test</button>
 	
 </div>
 
 <div id='chat'>
-	<div id='messages'></div>
-	<input id='chat-input' type='text'>
+	<div class='inner'>
+		<div id='messages'></div>
+		<input id='chat-input' type='text'>
+	</div>
 </div>

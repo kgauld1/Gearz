@@ -26,8 +26,10 @@ socket.on('newPlayer', (name) => {
 	p.innerHTML = "Found player: " + name;
 });
 
-
+var started = false;
 socket.on('starting', () => {
+	if (started) return;
+	started = true;
 	document.getElementById('startIndicator').innerHTML = 'Starting...';
 	setTimeout(() => {
 		goToPlayRoom();

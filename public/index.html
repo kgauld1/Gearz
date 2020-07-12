@@ -7,16 +7,13 @@
 
 		<link rel='stylesheet' href='/styles/index.css'>
 		<link rel='stylesheet' href='/styles/game.css'>
+    <link rel="icon" href='/images/gear_g.png'>
 		<script src = "https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.14.2/matter.min.js"> </script>
 		<script src="/socket.io/socket.io.js"></script>
     <script src="/scripts/pathseg.js"></script>
 		<script src="/scripts/decomp.js"></script>
-		<!-- <script src="decomp.js"></script> -->
-
 		<script src = '/scripts/gearRoom.js' defer> </script>
 		<script src = '/scripts/index.js' defer> </script>
-		<!-- <script src = '/scripts/physics.js' defer> </script> -->
-		<!-- <script src = '/scripts/physics2.js' defer> </script> -->
 
 	</head>
 	<body>
@@ -27,9 +24,10 @@
         </a>
       </div>
       <div id="nav_logo" class="navDiv">
-        <p id="logo_text">
+        <img src="/images/logo_gearz.png" id="logo_image">
+        <!-- <p id="logo_text">
           GEARZ
-        </p>
+        </p> -->
       </div>
       <div id="nav_help" class="navDiv">
         <a href="#help">
@@ -41,7 +39,7 @@
 
 		<div id='animation-screen'></div>
 
-		<button id='motor-switch'>Turn Motor Off</button>
+		<button id='motor-switch'>Start Motor</button>
 
 		<div id='enter-details'>
 				<input id='name' type='text' placeholder="Name" oninput='checkHasName(this)'>

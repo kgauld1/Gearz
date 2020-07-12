@@ -29,14 +29,14 @@ body {
   top:0;
   overflow: hidden;
   width: 50%;
-  background-color:rgb(194, 152, 90);
+  background-color:#414756;
   margin: 0;
   text-align: center;
   border-radius: 7px;
   padding-left:0;
   padding-right:0;
-  padding-top:1%;
-  padding-bottom:1%;
+  padding-top:0.5%;
+  padding-bottom:0.5%;
   z-index:3;
 }
 .navDiv{
@@ -50,6 +50,9 @@ body {
 }
 #nav_logo{
   width: 55%;
+  padding-left:0;
+  padding-right:0;
+  padding-top:0.5%;
 }
 #nav_help{
   width:20%;
@@ -111,4 +114,26 @@ body {
 
 #waiting_room_text{
   font-family: "verdana";
+}
+
+#logo_image{
+  width:40%;
+  margin-top:1%;
+  margin-left:0;
+  margin-right:0;
+  margin-bottom:0;
+}
+
+#nav_home{
+  padding-left:0;
+  padding-right:0;
+  padding-top:1%;
+  padding-bottom:1%;
+}
+
+#nav_help{
+  padding-left:0;
+  padding-right:0;
+  padding-top:1%;
+  padding-bottom:1%;
 }

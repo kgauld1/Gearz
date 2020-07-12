@@ -1,4 +1,4 @@
-
+const fs = require('fs');
 
 function clean(str){
 	str = str.replace(/</g, '&lt').replace(/>/g, '&gt');
@@ -11,7 +11,8 @@ function cleanName(str){
 	return str;
 }
 
-
+var rawdata = fs.readFileSync('levels.json');
+var levels = JSON.parse(rawdata);
 
 
 module.exports = (http) => {
@@ -23,8 +24,6 @@ module.exports = (http) => {
 	var playing = {};
 	var available = {};
 
-	var uplateLevels = [];
-
 	function createGroup(){
 		let randKey = Math.round(Math.random()*1e5);
 		available[randKey] = {players: []};
@@ -34,7 +33,7 @@ module.exports = (http) => {
 	function startGame(key){
 		playing[key] = available[key];
 		playing[key].level = 1;
-		playing[key].board = [];	
+		playing[key].passed = null;
 		delete available[key];
 	}
 	
@@ -67,6 +66,29 @@ module.exports = (http) => {
 			}
 		});
 
+		socket.on('getLevel', before => {
+			playing[group].level = before + 1;
+			let send = levels[playing[group].level];
+			send.level = before + 1;
+			socket.emit('getLevel', send);
+		});
+
+		socket.on('passed', did => {
+			if (playing[group].passed == null) playing[group].passed = did;
+			else {
+				playing[group].passed = playing[group].passed || did;
+				if (playing[group].passed){
+					playing[group].passed = null;
+					playing[group].level++;
+					let send = levels[playing[group].level];
+					send.level = playing[group].level;
+					io.in(group).emit('getLevel', send);
+				}
+				else io.in(group).emit('disconnect');
+			}
+		})
+
+
 		socket.on('joinCode', ({playerName, code}) => {
 			name = cleanName(playerName);
 			group = code;
@@ -98,17 +120,20 @@ module.exports = (http) => {
 
 		socket.on('chat', message => {
 			message = clean(message);
-			console.log('message', name, message);
 			socket.to(group).emit('chat', {message: message, name: name, you: false});
 			socket.emit('chat', {message: message, name: name, you: true})
 		});
 
-		socket.on('place', (x, y, num) => {
-			io.in(group).emit('place', {x: x, y: y, num: num});
+		socket.on('place', data => {
+			io.in(group).emit('place', data);
 		});
 
 		socket.on('getGroup', () => {
 			socket.emit('getGroup', group);
+		});
+
+		socket.on('run', () => {
+			io.in(group).emit('run');
 		});
 
 		socket.on('disconnect', () => {
@@ -124,7 +149,7 @@ module.exports = (http) => {
 				if (available[group].players.length == 0) delete available[group];
 				else io.in(group).emit('disconnected', name);
 			}
-		})
+		});
 		
 	});
 }

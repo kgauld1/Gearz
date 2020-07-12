@@ -53,9 +53,6 @@ class GearRoom{
 		this.boundaries();
 		this.makeGrid();
 		this.snap();
-
-		
-
 	}
 
 	async getVertices(file){
@@ -101,8 +98,8 @@ class GearRoom{
 				collisionFilter: {group: 1},
 			});
 			gear.constraint = null;
-			this.allGears.push(gear);
 			World.add(this.engine.world, gear);
+			this.allGears.push(gear);
 		}
 
 	}
@@ -134,7 +131,7 @@ class GearRoom{
 			inertia: Infinity,
 			isStatic: true,
 			currentRotation: 0,
-			rotationSpeed: 0.05
+			rotationSpeed: 0
 		});
 		
 		World.add(this.engine.world, this.motor);
@@ -154,7 +151,13 @@ class GearRoom{
 	}
 
 	placeGear(x, y, num){
-		Body.setPosition(this.allGears[num], {x: x, y: y});
+		if (this.allGears[num]){
+			if (this.allGears[num].constraint){
+				Composite.remove(this.engine.world, this.allGears[num].constraint, true);
+				this.allGears[num].constraint = null;
+			}
+			this.click(this.allGears[num], x, y)
+		}
 	}
 
 	snap(){
@@ -194,6 +197,13 @@ class GearRoom{
 		});
 		obj.constraint = constraint;
 		World.add(this.engine.world, constraint);
+	}
+
+	noMovement(){
+		for (let g of this.allGears){
+			Body.setAngularVelocity(g, 0);
+		}
+		Body.setAngularVelocity(this.endGear, 0);
 	}
 
 	updateRotation() {
